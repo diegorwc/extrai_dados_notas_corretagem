@@ -1,0 +1,7 @@
+*.json
+*.csv
+*.pdf
+*.jar
+/node_modules/
+tmp
+txt
