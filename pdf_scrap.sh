@@ -13,7 +13,7 @@ do
         DATA_FOR_CUT=`echo $line | sed -E 's/SPA C/SPA,C/g;s/,+/,/g;s/FRACIONARIO //g;s/ ([0-9]+),/,\1,/g;s/1-BOVESPA,//g;s/ D"/",D/g;s/[# ]//g;s/"([0-9]+),([0-9]+)"/\1.\2/g'`        
         OPERACAO=`echo $DATA_FOR_CUT | cut -d, -f1`
         CODIGO_ATIVO=`echo $DATA_FOR_CUT | cut -d, -f2`
-        if [[ "$CODIGO_ATIVO" == *"PN"* ]]; then
+        if [[ "$CODIGO_ATIVO" == *"PN"* ]]; then                        
             if [[ "$CODIGO_ATIVO" == *"ALUP"* ]]; then
                 CODIGO=ALUP4
             fi
@@ -59,10 +59,14 @@ do
             fi
             if [[ "$CODIGO_ATIVO" == *"AMBEV"* ]]; then
                 CODIGO=ABEV3
-            fi        
-            if [[ "$CODIGO_ATIVO" == *"ENGIE"* ]]; then
-                CODIGO=EGIE3
-            fi    
+            fi
+            case $CODIGO_ATIVO in 
+                *"ENGIE"*) CODIGO=EGIE3 ;;
+                *"BRASIL"*) CODIGO=BBAS3 ;;
+            esac        
+            # if [[ "$CODIGO_ATIVO" == *"ENGIE"* ]]; then
+            #     CODIGO=EGIE3
+            # fi    
             if [[ "$CODIGO_ATIVO" == *"SLC"* ]]; then
                 CODIGO=SLCE3
             fi    
@@ -87,9 +91,9 @@ do
             if [[ "$CODIGO_ATIVO" == *"TOTV"* ]]; then
                 CODIGO=TOTS3
             fi
-            if [[ "$CODIGO_ATIVO" == *"BRASIL"* ]]; then
-                CODIGO=BBAS3
-            fi
+            # if [[ "$CODIGO_ATIVO" == *"BRASIL"* ]]; then
+            #     CODIGO=BBAS3
+            # fi
             if [[ "$CODIGO_ATIVO" == *"EQUAT"* ]]; then
                 CODIGO=EQTL3
             fi
